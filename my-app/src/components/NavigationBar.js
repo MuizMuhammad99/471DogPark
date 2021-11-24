@@ -25,6 +25,31 @@ const NavigationBar = () => {
       navigationBarClick('/login')
     }}> Login</button>
     </div>
+    <div>
+    <button onClick={() => {
+      navigationBarClick('/about')
+    }}> About</button>
+    </div>
+    <div>
+    <button onClick={() => {
+      navigationBarClick('/announcements')
+    }}> Announcements</button>
+    </div>
+    <div>
+    <button onClick={() => {
+      navigationBarClick('/contact')
+    }}> Contact</button>
+    </div>
+    <div>
+    <button onClick={() => {
+      navigationBarClick('/searchforpark')
+    }}> Search For Park</button>
+    </div>
+    <div>
+    <button onClick={() => {
+      navigationBarClick('/seeallparks')
+    }}> See All Parks</button>
+    </div>
     
     
 
