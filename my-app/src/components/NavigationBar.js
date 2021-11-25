@@ -11,43 +11,43 @@ const NavigationBar = () => {
 
   return (
   <div className = "container">
-    <div className= "btn">
-    <button onClick={() => {
+    <div className ="button">
+    <button className= "btn" onClick={() => {
       navigationBarClick('/')
     }}> Home Page</button>
     </div>
-    <div className= "btn">
-    <button onClick={() => {
+    <div className ="button">
+    <button className= "btn" onClick={() => {
       navigationBarClick('/register')
     }}> Register</button>
     </div>
-    <div className= "btn">
-    <button onClick={() => {
+    <div className ="button">
+    <button className= "btn" onClick={() => {
       navigationBarClick('/login')
     }}> Login</button>
     </div>
-    <div className= "btn">
-    <button onClick={() => {
+    <div className ="button">
+    <button className= "btn" onClick={() => {
       navigationBarClick('/about')
     }}> About</button>
     </div>
-    <div className= "btn">
-    <button onClick={() => {
+    <div className ="button">
+    <button className= "btn" onClick={() => {
       navigationBarClick('/announcements')
     }}> Announcements</button>
     </div>
-    <div className= "btn">
-    <button onClick={() => {
+    <div className ="button">
+    <button className= "btn" onClick={() => {
       navigationBarClick('/contact')
     }}> Contact</button>
     </div>
-    <div className= "btn">
-    <button onClick={() => {
+    <div className ="button">
+    <button className= "btn" onClick={() => {
       navigationBarClick('/searchforpark')
     }}> Search For Park</button>
     </div>
-    <div className= "btn">
-    <button onClick={() => {
+    <div className ="button">
+    <button className= "btn" onClick={() => {
       navigationBarClick('/seeallparks')
     }}> See All Parks</button>
     </div>
