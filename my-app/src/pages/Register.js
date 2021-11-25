@@ -4,6 +4,7 @@ const Register = () =>{
 
     return <div>
         <form>
+                        <h1 className = "Title">Create an Account</h1>
                         <div>
                             <label>Username</label>
                             <input

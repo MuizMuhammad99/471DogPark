@@ -1,8 +1,12 @@
 import React from 'react';
+import '../App.css';
 
 const Contact = () =>{
 
-    return <div>Contact page</div>
+    return <div>
+    			<h1 className = "Title">Contact Information</h1>
+    			Contact information goes here.
+    	   </div>
 
 };
 
