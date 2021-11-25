@@ -21,7 +21,7 @@ function Routing() {
                 <Route path='/announcements' exact component={Announcements } />
                 <Route path='/contact' exact component={Contact } />
                 <Route path='/searchforpark' exact component={SearchForPark } />
-                <Route path='/seeallpark' exact component={SeeAllParks } />
+                <Route path='/seeallparks' exact component={SeeAllParks } />
 
 
 
