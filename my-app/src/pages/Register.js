@@ -1,33 +1,36 @@
 import React from 'react';
+import '../style/register.css';
 
 const Register = () =>{
 
-    return <div>
-        <form>
-                        <h1 className = "Title">Create an Account</h1>
-                        <div>
-                            <label>Username</label>
+    return <div className ="registerImage">
+        <form className ="secondregister">
+                        <h1 style ={{textAlign: 'center'}}>Create an Account</h1>
+                        <div style ={{textAlign: 'center'}}>
+                            <label className = "labelstyle">Username: </label>
                             <input
+                                className = "inputstyle"
                                 type='text'
                                 placeholder='Username'
                                 ></input>
                         </div>
-                        <div >
-                            <label>Email</label>
+                        <div style ={{textAlign: 'center'}}>
+                            <label className = "labelstyle" >Email: </label>
                             <input
+                                className = "inputstyle"
                                 type='text'
                                 placeholder='Email'
                                 ></input>
                         </div>
-                        <div >
-                            <label>Password</label>
-                            <input
+                        <div style ={{textAlign: 'center'}}>
+                            <label className = "labelstyle">Password: </label>
+                            <input className = "inputstyle"
                                 type='text'
                                 placeholder='Password'
                                 ></input>
                         </div>
-                        <div>
-                            <button>
+                        <div style ={{textAlign: 'center', marginTop: "50px", marginBottom: "50px"}}>
+                            <button className= "btn">
                                 Sign Up
                             </button>
                         </div>
