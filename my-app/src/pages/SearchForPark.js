@@ -3,6 +3,7 @@ import React from 'react';
 const SearchForParkPage = () =>{
 
 	return   <form>
+		   <h1 className = "Title">Search for Dog Parks</h1>
 	           <h2>
 	    		  Search for a park page:
 	    	   </h2>
