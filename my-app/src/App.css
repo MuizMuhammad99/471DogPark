@@ -2,6 +2,11 @@
   text-align: center;
 }
 
+.Column {
+  display: flex;
+  flex-direction: column;
+}
+
 .Menu-bar {
   display: flex;
   align-items: baseline;
@@ -11,6 +16,15 @@
 .Table-element {
   width: 300px;
   text-align: left;
+}
+
+.Filler {
+  color: lightgrey;
+}
+
+.Check-box {
+  width:30px;
+  height: 16px;
 }
 
 .Title {
@@ -23,16 +37,24 @@
   align-items: baseline;
   column-gap: 180px;
   width: 600px;
-  text-align: left;
+  border-bottom-style: solid;
+  border-width: 2px;
+}
+
+.Filter-box {
   display: flex;
-  align-items: baseline;
-  
-  text-align: left;
-  border-bottom-style: dashed;
+  column-gap: 20px;
+  border-style: solid;
+  border-width: 2px;
+  padding-left: 10px;
+}
+
+.Filter-title {
+  border-bottom: solid;
+  border-width: 2px;
 }
 
 .Primary {
   height: 100vh;
-  background: lightgrey;
-  
+  background: lightgrey;  
 }
