@@ -3,9 +3,13 @@ import '../App.css';
 
 const Contact = () =>{
 
-    return <div>
-    			<h1 className = "Title">Contact Information</h1>
-    			Contact information goes here.
+    return <div className = "contactImage">
+    			<div className ="aboutsecond" style ={{textAlign: 'center'}}>
+				<h1 className = "Title">Contact Information</h1>
+				<h3>
+				Contact information goes here.
+				</h3>
+				</div>
     	   </div>
 
 };
