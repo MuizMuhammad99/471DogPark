@@ -5,9 +5,8 @@ Must have nodeJS downloaded. You can download nodeJS from
 https://nodejs.org/en/download/
 ------------
 Download the following dependencies from cmd using:
-1) npm install
-2) npm install react react-dom --save
-3) npm install react-router-dom@5.3.0
+1) cd into 'my-app' folder
+2) type 'npm install --save react react-dom react-scripts'
 -----------
 TO RUN WEBSITE
 1) Extract Zip
