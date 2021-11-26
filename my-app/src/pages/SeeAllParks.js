@@ -32,8 +32,8 @@ const SeeAllParks = () =>{
 
     return <div>
 
-    		<div className ="registerImage">
-        		<div className ="secondregister">
+    		<div className ="seeImage">
+        		<div className ="seesecond">
 	    			<div className = "Menu-bar" >
 		    			<div className = "Park-list">
 			    			<div className = "Table-title">

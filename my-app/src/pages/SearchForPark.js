@@ -3,8 +3,8 @@ import '../style/register.css'
 
 const SearchForParkPage = () =>{
 
-	return   <div className ="registerImage">
-        <form className ="secondregister">
+	return   <div className ="searchImage">
+        <form className ="searchsecond">
         <h1 style ={{textAlign: 'center'}}>Search for a dog park in Calgary</h1>
                         <div style ={{textAlign: 'center'}}>
                             <label className = "labelstyle">Park name</label>
