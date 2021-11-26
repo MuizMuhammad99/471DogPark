@@ -1,15 +1,15 @@
 import React , {useState} from 'react';
+import '../style/navbar.css';
+import '../style/login.css';
 
 function Park(props) {
 	return(
 		<div className = "Menu-bar">
 			<h4 className = "Table-element" >{props.name}</h4>
-			<h4>{props.quadrant}</h4>
+			<h4 className = "Table-element">{props.quadrant}</h4>
 		</div>
 	);
 }
-
-
 
 
 const SeeAllParks = () =>{
@@ -31,21 +31,25 @@ const SeeAllParks = () =>{
 	const [allowCenter, setAllowCenter] = useState(true);
 
     return <div>
-    		<h1 className = "Title"> Calgary dog parks </h1>
-    			<div className = "Menu-bar">
-	    			<div>
-		    			<div className = "Table-title">
-		    				<h2>Park Name</h2>
-		    				<h2>Quadrant</h2>
-		    			</div>
-		    			{park.map(park => {
-		    				if (allowSE && park.quadrant == "SE" || allowSW && park.quadrant == "SW" 
-		    					|| allowNE && park.quadrant == "NE" || allowNW && park.quadrant == "NW" 
-		    					|| allowCenter && park.quadrant == "Central") 
-		    					return <Park name={park.name} quadrant={park.quadrant} />
-	    				})}
-	    			</div>
-	    			<div className = "Filter-box">
+
+    		<div className ="registerImage">
+        		<div className ="secondregister">
+	    			<div className = "Menu-bar" >
+		    			<div className = "Park-list">
+			    			<div className = "Table-title">
+			    				<h2 className="labelstyle"> park name</h2>
+			    				<h2 className="labelstyle">quadrant</h2>
+			    			</div>
+				    			{park.map(park => {
+				    				if (allowSE && park.quadrant == "SE" || allowSW && park.quadrant == "SW" 
+				    					|| allowNE && park.quadrant == "NE" || allowNW && park.quadrant == "NW" 
+				    					|| allowCenter && park.quadrant == "Central") 
+				    					return <Park name={park.name} quadrant={park.quadrant} />
+			    				})}
+		    				</div>
+
+
+		    			<div className = "Filter-box">
 	    				
 	    				<div className = "Column">
 	    					<h4 className = "Filter-title">Filters</h4>
@@ -94,8 +98,12 @@ const SeeAllParks = () =>{
 
 						</div>
 					</div>
-				</div>
-    	   </div>
+
+		    		</div>
+                        
+        </div>
+    </div>
+</div>
 
 };
 
