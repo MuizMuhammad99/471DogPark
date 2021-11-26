@@ -1,24 +1,27 @@
 import React from 'react';
+import '../style/register.css'
 
 const SearchForParkPage = () =>{
 
-	return   <form>
-		   <h1 className = "Title">Search for Dog Parks</h1>
-	           <h2>
-	    		  Search for a park page:
-	    	   </h2>
-	    	   <div>
-	    	     <label>Park name: </label>
-	              <input
-	                type='text'
-	                placeholder='park name'
-	              ></input>
-	              <button>
-	                Search
-	              </button>
-	            </div>
-	            
-	          </form>
+	return   <div className ="registerImage">
+        <form className ="secondregister">
+        <h1 style ={{textAlign: 'center'}}>Search for a dog park in Calgary</h1>
+                        <div style ={{textAlign: 'center'}}>
+                            <label className = "labelstyle">Park name</label>
+                            <input 
+                                className = "inputstyle"
+                                type='text'
+                                placeholder='Park name'
+                                ></input>
+                        </div>
+                        
+                        <div style ={{textAlign: 'center', marginTop: "50px", marginBottom: "50px"}}>
+                            <button className= "btn">
+                                Search
+                            </button>
+                        </div>
+                    </form>
+    </div>
 
 };
 
