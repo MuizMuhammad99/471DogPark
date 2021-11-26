@@ -11,15 +11,17 @@
   display: flex;
   align-items: baseline;
   column-gap: 20px;
+  align-items: right;
 }
 
 .Table-element {
   width: 300px;
   text-align: left;
+  font-family: "Arial Black", Gadget, sans-serif;
 }
 
 .Filler {
-  color: lightgrey;
+  color: rgba(51, 170, 51, .1);
 }
 
 .Check-box {
@@ -41,12 +43,25 @@
   border-width: 2px;
 }
 
+.Park-list {
+  background: lightgreen;
+  padding-left: 30px;
+  border-radius: 30px;
+  border-style: solid;
+  background: rgba(144, 238, 144, .7);
+  box-shadow: 10px 0px 10px;
+}
+
 .Filter-box {
   display: flex;
   column-gap: 20px;
   border-style: solid;
   border-width: 2px;
   padding-left: 10px;
+  border-radius: 30px;
+  padding-bottom: 10px;
+  background: rgba(51, 170, 51, .8);
+  box-shadow: 10px 0px 10px;
 }
 
 .Filter-title {
