@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS DogParkDB;
+
 CREATE DATABASE DogParkDB;
 USE DogParkDB;
 
@@ -19,7 +21,7 @@ CREATE TABLE USER (
   Fname varchar(255),
   Lname varchar(255),
   Street_number varchar(255),
-  Streer varchar(255),
+  Street varchar(255),
   Quadrant varchar(255)
 );
 
