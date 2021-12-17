@@ -8,7 +8,7 @@ function Park(props) {
 	const [data, setData] = React.useState({id:0, name:"", size:0, streetnum:0, street:0, quad:"", hood:"", owner:0});
 
 	  React.useEffect(() => {
-	    fetch("/api/dogpark/id/" + props.id)
+	    fetch("/api/dogpark/id/"+props.id)
 	      .then((res) => res.json())
 	      .then((data) => setData({id: props.id, name: data.Park_name, size: data.Size,
 	      						   streetnum: data.Street_number, street: data.Street, 
@@ -20,14 +20,14 @@ function Park(props) {
 				    					|| props.allowCenter && data.quad == "Central") 
 		return(
 			<div className = "Menu-bar">
-				<h4 className = "Table-element" onClick={() => {window.open("http://localhost:3000/ViewPark?id="        + props.id
-																										 + "name="      + data.name
-																										 + "size="      + data.size
-																										 + "streetnum=" + data.streetnum
-																										 + "street="    + data.street
-																										 + "quad="      + data.quad
-																										 + "hood="      + data.hood
-																										 + "owner="     + data.owner
+				<h4 className = "Table-element" onClick={() => {window.open("http://localhost:3000/ViewPark?id="         + props.id
+																										 + "&name="      + data.name
+																										 + "&size="      + data.size
+																										 + "&streetnum=" + data.streetnum
+																										 + "&street="    + data.street
+																										 + "&quad="      + data.quad
+																										 + "&hood="      + data.hood
+																										 + "&owner="     + data.owner
 																										 )}}>{data.name}</h4>
 				<h4 className = "Table-element">{data.quad}, {data.hood}</h4>
 			</div>
