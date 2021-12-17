@@ -8,6 +8,7 @@ import Announcements from '../pages/Announcements';
 import Contact from '../pages/Contact';
 import SearchForPark from '../pages/SearchForPark';
 import SeeAllParks from '../pages/SeeAllParks';
+import ViewPark from '../pages/ViewPark';
 
 
 function Routing() {
@@ -22,8 +23,8 @@ function Routing() {
                 <Route path='/contact' exact component={Contact } />
                 <Route path='/searchforpark' exact component={SearchForPark } />
                 <Route path='/seeallparks' exact component={SeeAllParks } />
-
-
+		<Route path='/viewpark' exact component={ViewPark } />
+		
 
             </Switch>
         </>
