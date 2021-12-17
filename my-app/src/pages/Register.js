@@ -14,7 +14,7 @@ const Register = () => {
   const [quadrantRegistering, setQuadrantRegistering] = useState("");
 
   const register = () => {
-    Axios.post("/api/user/new", {
+    Axios.post("http://localhost:3001/api/user/new", {
       email: emailRegistering,
       username: usernameRegistering,
       password: passwordRegistering,
