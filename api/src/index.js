@@ -415,11 +415,23 @@ app.get("/api/user/credentials/email", (req, res) => {
   );
 });
 
+app.get("/api/event/all", (req, res) => {
+  con.query(
+    "SELECT * FROM event",
+    (err, rows, fields) => {
+      if (err) console.log(err);
+      else {
+        res.send(rows);
+      }
+    }
+  );
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
 
-//Endpoint 29: Get info about a user
+//Endpoint 30: Get info about a user
 app.get("/api/dogpark/user/all", (req, res) => {
   con.query(
     "SELECT * FROM USER",
