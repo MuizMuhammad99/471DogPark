@@ -41,38 +41,38 @@ const analytics = () => {
         ];
 
     const data3= [
-        {name: "NW", value: 2},
-        {name: "NE", value: 1},
-        {name: "SW", value: 1},
-        {name: "SE", value: 1},
+        {name: "NW", NW: 2},
+        {name: "NE", NE: 1},
+        {name: "SW", SW: 1},
+        {name: "SE", SE: 1},
         ];
     const data4= [
-        {name: "NW (park id: 1)", value: 4},
-        {name: "NW (park id: 2)", value: 0},
-        {name: "NE (park id: 3", value: 4},
-        {name: "SW (park id: 4", value: 0},
-        {name: "SE (park id: 5", value: 0},
+        {name: "NW (park id: 1)", NW: 4},
+        {name: "NW (park id: 2)", NW: 0},
+        {name: "NE (park id: 3", NE: 4},
+        {name: "SW (park id: 4", SW: 0},
+        {name: "SE (park id: 5", SE: 0},
         ];
     const data5= [
-        {name: "NW (park id: 1)", value: 100},
-        {name: "NW (park id: 2)", value: 100},
-        {name: "NE (park id: 3", value: 342},
-        {name: "SW (park id: 4", value: 88},
-        {name: "SE (park id: 5", value: 15},
+        {name: "NW (park id: 1)", NW: 100},
+        {name: "NW (park id: 2)", NW: 100},
+        {name: "NE (park id: 3", NE: 342},
+        {name: "SW (park id: 4", SW: 88},
+        {name: "SE (park id: 5", SE: 15},
         ];
     const data6= [
-        {name: "NW (park id: 1)", value: 3},
-        {name: "NW (park id: 2)", value: 1},
-        {name: "NE (park id: 3", value: 1},
-        {name: "SW (park id: 4", value: 3},
-        {name: "SE (park id: 5", value: 2},
+        {name: "NW (park id: 1)", NW: 3},
+        {name: "NW (park id: 2)", NW: 1},
+        {name: "NE (park id: 3", NE: 1},
+        {name: "SW (park id: 4", SW: 3},
+        {name: "SE (park id: 5", SE: 2},
         ];
     const data7= [
-        {name: "NW (park id: 1)", value: 2},
-        {name: "NW (park id: 2)", value: 1},
-        {name: "NE (park id: 3", value: 3},
-        {name: "SW (park id: 4", value: 0},
-        {name: "SE (park id: 5", value: 1},
+        {name: "NW (park id: 1)", NW: 2},
+        {name: "NW (park id: 2)", NW: 1},
+        {name: "NE (park id: 3", NE: 3},
+        {name: "SW (park id: 4", SW: 0},
+        {name: "SE (park id: 5", SE: 1},
         ];
     
 
@@ -136,7 +136,7 @@ const analytics = () => {
 
                 </BarChart>
               </div>
-              <div>Number of dog-parks in each  quadrant
+              <div>Number of dog-parks in each quadrant of Calgary
                 <BarChart
                   width={500}
                   height={300}
@@ -157,7 +157,10 @@ const analytics = () => {
                   <Tooltip />
                   <Legend />
                   <CartesianGrid strokeDasharray="3 3" />
-                  <Bar dataKey="value" fill="#8884d8" />
+                  <Bar dataKey="NW" fill="#2184d8" />
+                  <Bar dataKey="NE" fill="#E13102" />
+                  <Bar dataKey="SW" fill="#D9B300" />
+                  <Bar dataKey="SE" fill="#107c10" />
                 </BarChart>
               </div>
               <div>Number of reviews in each park
@@ -181,7 +184,10 @@ const analytics = () => {
                   <Tooltip />
                   <Legend />
                   <CartesianGrid strokeDasharray="3 3" />
-                  <Bar dataKey="value" fill="#8884d8" />
+                  <Bar dataKey="NW" fill="#2184d8" />
+                  <Bar dataKey="NE" fill="#E13102" />
+                  <Bar dataKey="SW" fill="#D9B300" />
+                  <Bar dataKey="SE" fill="#107c10" />
                 </BarChart>
               </div>
               <div>Park User Capacity
@@ -205,8 +211,10 @@ const analytics = () => {
                   <Tooltip />
                   <Legend />
                   <CartesianGrid strokeDasharray="3 3" />
-                  <Bar dataKey="value" fill="#8884d8" />
-                </BarChart>
+                  <Bar dataKey="NW" fill="#2184d8" />
+                  <Bar dataKey="NE" fill="#E13102" />
+                  <Bar dataKey="SW" fill="#D9B300" />
+                  <Bar dataKey="SE" fill="#107c10" />                </BarChart>
               </div>
               <div>Available number of parking spots
                 <BarChart
@@ -229,8 +237,10 @@ const analytics = () => {
                   <Tooltip />
                   <Legend />
                   <CartesianGrid strokeDasharray="3 3" />
-                  <Bar dataKey="value" fill="#8884d8" />
-                </BarChart>
+                  <Bar dataKey="NW" fill="#2184d8" />
+                  <Bar dataKey="NE" fill="#E13102" />
+                  <Bar dataKey="SW" fill="#D9B300" />
+                  <Bar dataKey="SE" fill="#107c10" />                </BarChart>
               </div>
               <div>Number of all-time events held at each dog park 
                 <BarChart
@@ -253,7 +263,10 @@ const analytics = () => {
                   <Tooltip />
                   <Legend />
                   <CartesianGrid strokeDasharray="3 3" />
-                  <Bar dataKey="value" fill="#8884d8" />
+                  <Bar dataKey="NW" fill="#2184d8" />
+                  <Bar dataKey="NE" fill="#E13102" />
+                  <Bar dataKey="SW" fill="#D9B300" />
+                  <Bar dataKey="SE" fill="#107c10" />
                 </BarChart>
               </div>
             </div>
