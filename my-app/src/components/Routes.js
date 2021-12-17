@@ -13,6 +13,7 @@ import Analytics from '../pages/Analytics';
 import AddNewReview from '../pages/AddNewReview';
 
 
+
 function Routing() {
     return (
         <>
@@ -26,7 +27,7 @@ function Routing() {
                 <Route path='/searchforpark' exact component={SearchForPark } />
                 <Route path='/seeallparks' exact component={SeeAllParks } />
 		        <Route path='/viewpark' exact component={ViewPark } />
-                <Route path='/analytics' exact component={Analytics } />
+                <Route path='/Analytics' exact component={Analytics } />
                 <Route path='/addnewreview' exact component={AddNewReview} />
 
 		
