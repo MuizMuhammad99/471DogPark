@@ -10,6 +10,7 @@ import SearchForPark from '../pages/SearchForPark';
 import SeeAllParks from '../pages/SeeAllParks';
 import ViewPark from '../pages/ViewPark';
 import Analytics from '../pages/Analytics';
+import AddNewReview from '../pages/AddNewReview';
 
 
 function Routing() {
@@ -26,6 +27,7 @@ function Routing() {
                 <Route path='/seeallparks' exact component={SeeAllParks } />
 		        <Route path='/viewpark' exact component={ViewPark } />
                 <Route path='/analytics' exact component={Analytics } />
+                <Route path='/addnewreview' exact component={AddNewReview} />
 
 		
 

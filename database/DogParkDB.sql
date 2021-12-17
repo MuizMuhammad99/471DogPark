@@ -17,6 +17,11 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+
+DROP DATABASE IF EXISTS dogparkdb;
+CREATE DATABASE dogparkdb;
+USE dogparkdb;
+
 --
 -- Database: `dogparkdb`
 --
@@ -300,14 +305,16 @@ INSERT INTO `park_owner` (`ID_no`, `Name`, `Contact_info`) VALUES
 --
 
 CREATE TABLE `review` (
-  `Review_ID_no` int(11) NOT NULL,
+  `Review_ID_no` int(11) NOT NULL auto_increment,
   `Date` date DEFAULT NULL,
   `Writing` varchar(255) DEFAULT NULL,
   `Scenery` int(11) DEFAULT NULL,
   `Parking` int(11) DEFAULT NULL,
   `Amenities` int(11) DEFAULT NULL,
   `Reviewer_email` varchar(255) DEFAULT NULL,
-  `Park_ID` int(11) DEFAULT NULL
+  `Park_ID` int(11) DEFAULT NULL,
+  
+  PRIMARY KEY (Review_ID_no)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -385,7 +392,7 @@ CREATE TABLE `user` (
   `Fname` varchar(255) DEFAULT NULL,
   `Lname` varchar(255) DEFAULT NULL,
   `Street_number` varchar(255) DEFAULT NULL,
-  `Streer` varchar(255) DEFAULT NULL,
+  `Street` varchar(255) DEFAULT NULL,
   `Quadrant` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -393,7 +400,7 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`Email`, `Username`, `Password`, `Fname`, `Lname`, `Street_number`, `Streer`, `Quadrant`) VALUES
+INSERT INTO `user` (`Email`, `Username`, `Password`, `Fname`, `Lname`, `Street_number`, `Street`, `Quadrant`) VALUES
 ('user10@gmail.com', 'user10', 'pass10', 'User', 'Ten', 'StreetNumTen', 'StreetTen', 'NE'),
 ('user11@gmail.com', 'user11', 'pass11', 'User', 'Eleven', 'StreetNumEleven', 'StreetEleven', 'NE'),
 ('user12@gmail.com', 'user12', 'pass12', 'User', 'Twelve', 'StreetNumTwelve', 'StreetTwelve', 'NE'),
@@ -529,7 +536,7 @@ ALTER TABLE `park_owner`
 -- Indexes for table `review`
 --
 ALTER TABLE `review`
-  ADD PRIMARY KEY (`Review_ID_no`),
+  #ADD PRIMARY KEY (`Review_ID_no`),
   ADD KEY `Reviewer_email` (`Reviewer_email`),
   ADD KEY `Park_ID` (`Park_ID`);
 

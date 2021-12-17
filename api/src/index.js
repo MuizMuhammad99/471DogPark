@@ -126,13 +126,13 @@ app.get("/api/reviews/email/:email", (req, res) => {
 
 //Endpoint 8: Add a new review to the database
 app.post("/api/review/new", (req, res) => {
+  console.log("endpoint 8 called");
   let review = req.body;
   var sql =
-    "INSERT INTO Review (Review_ID_no,Date,Writing,Scenery,Parking,Amenities,Reviewer_Email,Park_ID) VALUES (?,?,?,?,?,?,?,?)";
+    "INSERT INTO Review (Date,Writing,Scenery,Parking,Amenities,Reviewer_Email,Park_ID) VALUES (?,?,?,?,?,?,?)";
   con.query(
     sql,
     [
-      review.id,
       review.date,
       review.writing,
       review.scenery,
