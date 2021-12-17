@@ -2,27 +2,49 @@ import React , {useState} from 'react';
 import '../style/navbar.css';
 import '../style/login.css';
 
+
 function Park(props) {
-	return(
-		<div className = "Menu-bar">
-			<h4 className = "Table-element" >{props.name}</h4>
-			<h4 className = "Table-element">{props.quadrant}</h4>
-		</div>
-	);
+
+	const [data, setData] = React.useState({id:0, name:"", size:0, streetnum:0, street:0, quad:"", hood:"", owner:0});
+
+	  React.useEffect(() => {
+	    fetch("/api/dogpark/id/" + props.id)
+	      .then((res) => res.json())
+	      .then((data) => setData({id: props.id, name: data.Park_name, size: data.Size,
+	      						   streetnum: data.Street_number, street: data.Street, 
+	      						   quad: data.Quadrant, hood: data.Neighbourhood_name, 
+	      						   owner: data.Owner_ID}));
+	  }, []);
+	if (props.allowSE && data.quad == "SE" || props.allowSW && data.quad == "SW" 
+				    					|| props.allowNE && data.quad == "NE" || props.allowNW && data.quad == "NW" 
+				    					|| props.allowCenter && data.quad == "Central") 
+		return(
+			<div className = "Menu-bar">
+				<h4 className = "Table-element" onClick={() => {window.open("http://localhost:3000/ViewPark?id="        + props.id
+																										 + "name="      + data.name
+																										 + "size="      + data.size
+																										 + "streetnum=" + data.streetnum
+																										 + "street="    + data.street
+																										 + "quad="      + data.quad
+																										 + "hood="      + data.hood
+																										 + "owner="     + data.owner
+																										 )}}>{data.name}</h4>
+				<h4 className = "Table-element">{data.quad}, {data.hood}</h4>
+			</div>
+		);
+	else
+		return (null);
 }
 
 
 const SeeAllParks = () =>{
+	const [data, setData] = React.useState({ids: []});
 
-	const [park, setParks] = useState([
-		{name: "Test Park 1", quadrant: "NE"},
-		{name: "Test Chaparral Park", quadrant: "SE"},
-		{name: "Test Stampede Park", quadrant: "Central"},
-		{name: "Test SW Park", quadrant: "SW"},
-		{name: "Test NW Park", quadrant: "NW"},
-		{name: "Test SE Park", quadrant: "SE"},
-		{name: "Test NE Park", quadrant: "NE"}
-	]);
+	  React.useEffect(() => {
+	    fetch("/api/dogparks/ids")
+	      .then((res) => res.json())
+	      .then((data) => setData({ids: data}));
+	  }, []);
 
 	const [allowSE, setAllowSE] = useState(true);
 	const [allowSW, setAllowSW] = useState(true);
@@ -38,13 +60,11 @@ const SeeAllParks = () =>{
 		    			<div className = "Park-list">
 			    			<div className = "Table-title">
 			    				<h2 className="labelstyle"> park name</h2>
-			    				<h2 className="labelstyle">quadrant</h2>
+			    				<h2 className="labelstyle">location</h2>
 			    			</div>
-				    			{park.map(park => {
-				    				if (allowSE && park.quadrant == "SE" || allowSW && park.quadrant == "SW" 
-				    					|| allowNE && park.quadrant == "NE" || allowNW && park.quadrant == "NW" 
-				    					|| allowCenter && park.quadrant == "Central") 
-				    					return <Park name={park.name} quadrant={park.quadrant} />
+				    			{data.ids.map(x => {
+
+				    				return <Park id={x.Park_ID_no} allowSE={allowSE} allowSW={allowSW} allowNE={allowNE} allowNW={allowNW} />
 			    				})}
 		    				</div>
 
