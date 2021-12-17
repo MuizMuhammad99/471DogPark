@@ -3,14 +3,17 @@ const PORT = 3001;
 const app = express();
 const mysql = require("mysql2");
 const bodyparser = require("body-parser");
+const cors = require("cors");
+
 
 app.use(bodyparser.json());
 app.use(express.json());
+app.use(cors());
 
 var con = mysql.createConnection({
   host: "localhost",
-  user: "cpsc471",
-  password: "123456",
+  user: "root",
+  password: "",
   database: "DogParkDB",
 });
 
