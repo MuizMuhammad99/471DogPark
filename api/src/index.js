@@ -279,6 +279,16 @@ app.get('/api/user/:email/credentials', (req, res) => {
     });
 });
 
+//Endpoint 27: Get all reviews on a dog park
+app.get('/api/reviews/park/:id', (req, res) => {
+    con.query("SELECT * FROM Review WHERE Park_ID = '" + [req.params.id] + "'", (err, rows, fields) => {
+        if(err) console.log(err);
+        else {
+            res.send(rows);
+        }
+    });
+});
+
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
