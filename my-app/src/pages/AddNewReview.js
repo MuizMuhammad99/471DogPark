@@ -5,12 +5,12 @@ import Axios from "axios";
 const AddNewReview = (props) => {
   const queryParams = new URLSearchParams(window.location.search);
   const email = queryParams.get("email");
-  const parkID = queryParams.get("id");
+  const parkID = parseInt(queryParams.get("parkID"));
   const [dateInput, setDate] = useState("");
   const [writingInput, setWriting] = useState("");
   const [sceneryInput, setScenery] = useState("");
   const [parkingInput, setParking] = useState("");
-  const [amenititesInput, setAmenities] = useState("");
+  const [amenitiesInput, setAmenities] = useState("");
 
   const submitReview = () => {
     Axios.post("/api/review/new", {
@@ -18,7 +18,7 @@ const AddNewReview = (props) => {
       "writing": writingInput,
       "scenery": sceneryInput,
       "parking": parkingInput,
-      "amenitites": amenititesInput,
+      "amenities": amenitiesInput,
       "reviewerEmail": email,
       "parkID": parkID,
     }).then((response) => {
@@ -35,7 +35,7 @@ const AddNewReview = (props) => {
           <input
             className="inputstyle"
             type="text"
-            placeholder="0000-00-00"
+            placeholder="yyyy-mm-dd"
             onChange={(e) => {
               setDate(e.target.value);
             }}
