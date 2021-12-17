@@ -28,7 +28,7 @@ con.connect(function (err) {
 app.post("/api/user/new", (req, res) => {
   let user = req.body;
   var sql =
-    "INSERT INTO USER (Email,Username,Password,Fname,Lname,Street_number,Street,Quadrant) VALUES (?,?,?,?,?,?,?,?)";
+    "INSERT INTO USER (Email,Username,Password,Fname,Lname,Street_number,Streer,Quadrant) VALUES (?,?,?,?,?,?,?,?)";
   con.query(
     sql,
     [
