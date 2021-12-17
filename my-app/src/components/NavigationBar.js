@@ -48,7 +48,7 @@ const NavigationBar = () => {
     </div>
     <div className ="button">
     <button className= "btn" onClick={() => {
-      navigationBarClick('/seeallparks')
+      navigationBarClick('/seeallparks?hood=none&add=none&name=none')
     }}> See All Parks</button>
     </div>
     
