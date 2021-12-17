@@ -3,14 +3,17 @@ const PORT = 3001;
 const app = express();
 const mysql = require("mysql2");
 const bodyparser = require("body-parser");
+const cors = require("cors");
+
 
 app.use(bodyparser.json());
 app.use(express.json());
+app.use(cors());
 
 var con = mysql.createConnection({
     host: "localhost",
-    user: "cpsc471",
-    password: "123456",
+    user: "root",
+    password: "",
     database: "DogParkDB"
 });
 
@@ -24,7 +27,7 @@ con.connect(function(err) {
 //Endpoint 1: Register new user
 app.post('/api/user/new', (req, res) => {
     let user = req.body;
-    var sql = "INSERT INTO USER (Email, Username, Password, Fname, Lname, Street_number, Street, Quadrant) VALUES ('"
+    var sql = "INSERT INTO USER (Email, Username, Password, Fname, Lname, Street_number, Streer, Quadrant) VALUES ('"
     + user.email + "','" + user.username + "','" + user.password + "','" + user.fname + "','" + user.lname + "','" +
     user.streetNumber + "','" + user.street + "','" + user.quadrant + "')";
     con.query(sql, (err, rows, fields) => {
@@ -55,7 +58,7 @@ app.get('/api/user/:email/password', (req, res) => {
 
 //Endpoint 4: Get reviews that have been reported
 app.get('/api/review/reported', (req, res) => {
-    con.query("SELECT R.* FROM (Review as R) JOIN Moderates ON R.Review_ID_no = Review_ID", (err, rows, fields) => {
+    con.query("SELECT Review_ID_no FROM MODERATES", (err, rows, fields) => {
         if(err) console.log(err);
         else {
             res.send(rows);
@@ -75,14 +78,11 @@ app.get('/api/reviews', (req, res) => {
 
 //Endpoint 6: Delete a review
 app.delete('/api/review/id/:id', (req, res) => {
-    con.query("DELETE FROM Moderates WHERE Review_ID = " + [req.params.id], (err, rows, fields) => {
-        if(err) console.log(err);
-    });
-    con.query("DELETE FROM Review WHERE Review_ID_no = " + [req.params.id], (err, rows, fields) => {
+    con.query("DELETE FROM Review WHERE Review_ID_no = '" + [req.params.id] + "'", (err, rows, fields) => {
         if(err) console.log(err);
         else res.send("Review deletion successful");
-    });
-});
+    })
+})
 
 //Endpoint 7: Get all reviews written by a user
 app.get('/api/reviews/email/:email', (req, res) => {
@@ -97,9 +97,9 @@ app.get('/api/reviews/email/:email', (req, res) => {
 //Endpoint 8: Add a new review to the database
 app.post('/api/review/new', (req, res) => {
     let review = req.body;
-    var sql = "INSERT INTO Review (Review_ID_no,Date,Writing,Scenery,Parking,Amenities,Reviewer_Email,Park_ID) VALUES ("
-    + review.id + ",'" + review.date + "','" + review.writing + "'," + review.scenery + "," + review.parking + "," + review.amenities
-    + ",'" + review.reviewerEmail + "'," + review.parkID + ")"
+    var sql = "INSERT INTO Review (Review_ID_no,Date,Writing,Scenery,Parking,Amenities,Reviewer_Email,Park_ID) VALUES ('"
+    + review.id + "," + review.date + "," + review.writing + "," + review.scenery + "," + review.parking + "," + review.amenities
+    + "," + review.reviewerEmail + "," + review.parkID + "')"
     con.query(sql, (err, rows, fields) => {
         if(err) console.log(err);
         else res.send("Review added successfully");
@@ -118,10 +118,9 @@ app.get('/api/neighbourhoods', (req, res) => {
 
 //(skipping 10 and 11)
 
-//Endpoint 12: Get all dog park IDs with a certain name
-app.get('/api/dogparks/name', (req, res) => {
-    let name = req.body;
-    con.query("SELECT Park_ID_no FROM DOG_PARK WHERE Park_name = '" + name.parkName + "'", (err, rows, fields) => {
+//Endpoint 12: Get all dog parks with a certain name
+app.get('/api/dogparks/name/:name', (req, res) => {
+    con.query("SELECT * FROM DOG_PARK WHERE Park_name = " + [req.params.name], (err, row, fields) => {
         if(err) console.log(err);
         else {
             res.send(rows);
@@ -130,11 +129,10 @@ app.get('/api/dogparks/name', (req, res) => {
 });
 
 //Endpoint 13: Get all dog park IDs with a certain address
-app.get('/api/dogparks/at_address', (req, res) => {
-    let addr = req.body;
-    var sql = "SELECT Park_ID_no FROM DOG_PARK WHERE Street_number = '" + addr.streetNumber + "' AND Street = '" + addr.street
-    + "' AND Quadrant = '" + addr.quadrant + "'";
-    console.log(sql);
+app.get('/api/dogpark/at_address', (req, res) => {
+    let park = req.body;
+    var sql = "SELECT Park_ID_no FROM DOG_PARK WHERE Street_number = " + park.streetNo + " AND Street = '" + park.street
+    + "' AND Quadrant = '" + res.quadrant + "'";
     con.query(sql, (err, rows, fields) => {
         if(err) console.log(err);
         else {
@@ -183,16 +181,15 @@ app.get('/api/dogpark/:id/parking', (req, res) => {
 });
 
 //Endpoint 19: Get neighbourhood info with amenities
-app.get('/api/neighbourhood/amenities', (req, res) => {
-    let inp = req.body;
+app.get('/api/neighborhood/:name/amenities', (req, res) => {
     var amenities;
-    con.query("SELECT Amenity_name, Description FROM AMENITIES WHERE Neighbourhood_name = '" + inp.neighbourhoodName + "'", (err, rows, fields) => {
+    con.query("SELECT Amenity_name, Description FROM AMENITIES WHERE Neighbourhood_name = '" + [req.params.name] + "'", (err, rows, fields) => {
         if(err) {
             console.log(err);
         }
         amenities = rows;
     })
-    con.query("SELECT * FROM NEIGHBOURHOOD WHERE Name = '" + inp.neighbourhoodName + "'", (err, rows, fields) => {
+    con.query("SELECT * FROM NEIGHBOURHOOD WHERE Name = '" + [req.params.name] + "'", (err, rows, fields) => {
         if(err) console.log(err);
         else {
             res.json({
@@ -206,7 +203,7 @@ app.get('/api/neighbourhood/amenities', (req, res) => {
 
 //Endpoint 20: Get events happening at a dog park
 app.get('/api/dogpark/:id/events', (req, res) => {
-    con.query("SELECT Name, Date, Description FROM EVENT JOIN HOLDS ON Event_name = Name WHERE PARK_ID = " + [req.params.id],
+    con.query("SELECT Name, Date, Description FROM EVENT JOIN HOLDS ON Event_name = Name WHERE PARK_ID = " [req.param.id],
     (err, rows, fields) => {
         if(err) console.log(err);
         else {
@@ -217,10 +214,10 @@ app.get('/api/dogpark/:id/events', (req, res) => {
 
 //Endpoint 21: Get info about a dog park owner
 app.get('/api/dogpark/owner/:id', (req, res) => {
-    con.query("SELECT * FROM PARK_OWNER WHERE ID_no = " + [req.params.id], (err, rows, fields) => {
+    con.query("SELECT * FROM OWNER WHERE Owner_ID = " + [req.params.id], (err, rows, fields) => {
         if(err) console.log(err);
         else {
-            res.send(rows[0]);
+            res.send(rows);
         }
     });
 });
@@ -228,7 +225,7 @@ app.get('/api/dogpark/owner/:id', (req, res) => {
 //Endpoint 22: Add an instance of moderates to the database
 app.post('/api/review/report', (req, res) => {
     let inst = req.body;
-    con.query("INSERT INTO moderates (Review_ID, Admin_email) VALUES (" + inst.reviewID + ",'" + inst.adminEmail + "')",
+    con.query("INSERT INTO moderates (Review_ID, Admin_email) VALUES (" + inst.reviewID + "," + inst.adminEmail + ")",
     (err, rows, fields) => {
         if(err) console.log(err);
         else res.send("Moderates instance successfully added");
@@ -237,10 +234,10 @@ app.post('/api/review/report', (req, res) => {
 
 //Endpoint 23: Edit a review in the database
 app.put('/api/review/edit', (req, res) => {
-    let newReview = req.body;
+    let newReview = req.body();
     var sql = "UPDATE REVIEW SET WRITING = '" + newReview.writing + "', Scenery = " + newReview.scenery +
     ", Parking = " + newReview.parking + ", Amenities = " + newReview.amenities +
-    " WHERE Review_ID_no = " + newReview.reviewID; 
+    "WHERE Review_ID_no = " + newReview.reviewID; 
     con.query(sql, (err, rows, fields) => {
         if(err) console.log(err);
         else {
@@ -251,10 +248,10 @@ app.put('/api/review/edit', (req, res) => {
 
 //Endpoint 24: Get a traffic review
 app.get('/api/review/:id/traffic', (req, res) => {
-    con.query("SELECT * FROM TRAFFIC_RATING WHERE Review_ID_no = " + [req.params.id], (err, rows, fields) => {
+    con.query("SELECT * FROM TRAFFIC_RATING WHERE Review_ID_no = " [req.params.id], (err, rows, fields) => {
         if(err) console.log(err);
         else {
-            res.send(rows[0]);
+            res.send(row[0]);
         }
     })
 })
