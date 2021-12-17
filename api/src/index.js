@@ -73,7 +73,7 @@ app.get('/api/reviews', (req, res) => {
 });
 
 //Endpoint 6: Delete a review
-app.delete('/api/review/:id', (req, res) => {
+app.delete('/api/review/id/:id', (req, res) => {
     con.query("DELETE FROM Review WHERE Review_ID_no = '" + [req.params.id] + "'", (err, rows, fields) => {
         if(err) console.log(err);
         else res.send("Review deletion successful");
@@ -81,7 +81,7 @@ app.delete('/api/review/:id', (req, res) => {
 })
 
 //Endpoint 7: Get all reviews written by a user
-app.get('/api/reviews/:email', (req, res) => {
+app.get('/api/reviews/email/:email', (req, res) => {
     con.query("SELECT * FROM Review WHERE Reviewer_email = '" + [req.params.email] + "'", (err, rows, fields) => {
         if(err) console.log(err);
         else {
@@ -115,7 +115,7 @@ app.get('/api/neighbourhoods', (req, res) => {
 //(skipping 10 and 11)
 
 //Endpoint 12: Get all dog parks with a certain name
-app.get('/api/dogparks/:name', (req, res) => {
+app.get('/api/dogparks/name/:name', (req, res) => {
     con.query("SELECT * FROM DOG_PARK WHERE Park_name = " + [req.params.name], (err, row, fields) => {
         if(err) console.log(err);
         else {
@@ -149,11 +149,11 @@ app.get('/api/dogpark/:id/avg_rating', (req, res) => {
         else {
             res.send(rows);
         }
-    })
+    });
 });
 
 //Endpoint 17: Get information about a certain dog park
-app.get('/api/dogpark/:id', (req, res) => {
+app.get('/api/dogpark/id/:id', (req, res) => {
     con.query("SELECT * FROM DOG_PARK WHERE Park_ID_no = " + [req.params.id], (err, rows, fields) => {
         if(err) console.log(err);
         else {
@@ -162,8 +162,98 @@ app.get('/api/dogpark/:id', (req, res) => {
     });
 });
 
+//Endpoint 18: Get parking info about a dog park
+app.get('/api/dogpark/:id/parking', (req, res) => {
+    var sql = "SELECT Lot_number, Number_of_spots, Park_id, AVG(price) AS Avg_price"
+    + " FROM PARKING_LOT NATURAL JOIN PARKING_SPACE"
+    + " WHERE Park_id = " + [req.params.id]
+    + " GROUP BY Lot_number"
+    con.query(sql, (err, rows, fields) => {
+        if(err) console.log(err);
+        else {
+            res.send(rows);
+        }
+    });
+});
+
+//Endpoint 19: Get neighbourhood info with amenities
+app.get('/api/neighborhood/:name/amenities', (req, res) => {
+    var amenities;
+    con.query("SELECT Amenity_name, Description FROM AMENITIES WHERE Neighbourhood_name = '" + [req.params.name] + "'", (err, rows, fields) => {
+        if(err) {
+            console.log(err);
+        }
+        amenities = rows;
+    })
+    con.query("SELECT * FROM NEIGHBOURHOOD WHERE Name = '" + [req.params.name] + "'", (err, rows, fields) => {
+        if(err) console.log(err);
+        else {
+            res.json({
+                "Neighbourhood_name": rows[0].Name,
+                "Quadrant": rows[0].Quadrant,
+                "Amenities": amenities
+            });
+        }
+    });
+});
+
+//Endpoint 20: Get events happening at a dog park
+app.get('/api/dogpark/:id/events', (req, res) => {
+    con.query("SELECT Name, Date, Description FROM EVENT JOIN HOLDS ON Event_name = Name WHERE PARK_ID = " [req.param.id],
+    (err, rows, fields) => {
+        if(err) console.log(err);
+        else {
+            res.send(rows);
+        }
+    });
+});
+
+//Endpoint 21: Get info about a dog park owner
+app.get('/api/dogpark/owner/:id', (req, res) => {
+    con.query("SELECT * FROM OWNER WHERE Owner_ID = " + [req.params.id], (err, rows, fields) => {
+        if(err) console.log(err);
+        else {
+            res.send(rows);
+        }
+    });
+});
+
+//Endpoint 22: Add an instance of moderates to the database
+app.post('/api/review/report', (req, res) => {
+    let inst = req.body;
+    con.query("INSERT INTO moderates (Review_ID, Admin_email) VALUES (" + inst.reviewID + "," + inst.adminEmail + ")",
+    (err, rows, fields) => {
+        if(err) console.log(err);
+        else res.send("Moderates instance successfully added");
+    })
+})
+
+//Endpoint 23: Edit a review in the database
+app.put('/api/review/edit', (req, res) => {
+    let newReview = req.body();
+    var sql = "UPDATE REVIEW SET WRITING = '" + newReview.writing + "', Scenery = " + newReview.scenery +
+    ", Parking = " + newReview.parking + ", Amenities = " + newReview.amenities +
+    "WHERE Review_ID_no = " + newReview.reviewID; 
+    con.query(sql, (err, rows, fields) => {
+        if(err) console.log(err);
+        else {
+            res.send("Review successfully updated");
+        }
+    });
+});
+
+//Endpoint 24: Get a traffic review
+app.get('/api/review/:id/traffic', (req, res) => {
+    con.query("SELECT * FROM TRAFFIC_RATING WHERE Review_ID_no = " [req.params.id], (err, rows, fields) => {
+        if(err) console.log(err);
+        else {
+            res.send(row[0]);
+        }
+    })
+})
+
 //Endpoint 25: Get all dog park IDs
-app.get('/api/dogpark/ids', (req, res) => {
+app.get('/api/dogparks/ids', (req, res) => {
     con.query("SELECT Park_ID_no FROM DOG_PARK", (err, rows, fields) => {
         if(err) console.log(err);
         else {
@@ -175,34 +265,3 @@ app.get('/api/dogpark/ids', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
-
-/*
-Generic single get request:
-app.get('', (req, res) => {
-    con.query("SELECT FROM WHERE = '" + [] + "', (err, rows, fields) => {
-        if(err) console.log(err);
-        else {
-            res.send(rows[0]);
-        }
-    });
-});
-Generic multiple get request:
-app.get('', (req, res) => {
-    con.query("SELECT FROM WHERE" (err, rows, fields) => {
-        if(err) console.log(err);
-        else {
-            res.send(rows);
-        }
-    });
-});
-
-Generic post request:
-app.post('', (req, res) => {
-    let  = req.body;
-    var sql = "INSERT INTO () VALUES ('" + "')"
-    con.query(sql, (err, rows, fields) => {
-        if(err) console.log(err);
-        else res.json({"email": user.email});
-    });
-});
-*/
