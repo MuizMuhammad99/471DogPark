@@ -48,7 +48,7 @@ app.post("/api/user/new", (req, res) => {
 //Endpoint 2: Get username of a user
 app.get("/api/user/:email/username", (req, res) => {
   con.query(
-    "SELECT Username FROM USER WHERE Email = " + [req.params.email],
+    "SELECT Username FROM USER WHERE Email = '" + [req.params.email] + "'",
     (err, rows, fields) => {
       if (err) console.log(err);
       else {
@@ -128,27 +128,24 @@ app.get("/api/reviews/email/:email", (req, res) => {
 app.post("/api/review/new", (req, res) => {
   let review = req.body;
   var sql =
-    "INSERT INTO Review (Review_ID_no,Date,Writing,Scenery,Parking,Amenities,Reviewer_Email,Park_ID) VALUES (" +
-    review.id +
-    ",'" +
-    review.date +
-    "','" +
-    review.writing +
-    "'," +
-    review.scenery +
-    "," +
-    review.parking +
-    "," +
-    review.amenities +
-    ",'" +
-    review.reviewerEmail +
-    "'," +
-    review.parkID +
-    ")";
-  con.query(sql, (err, rows, fields) => {
-    if (err) console.log(err);
-    else res.send("Review added successfully");
-  });
+    "INSERT INTO Review (Review_ID_no,Date,Writing,Scenery,Parking,Amenities,Reviewer_Email,Park_ID) VALUES (?,?,?,?,?,?,?,?)";
+  con.query(
+    sql,
+    [
+      review.id,
+      review.date,
+      review.writing,
+      review.scenery,
+      review.parking,
+      review.amenities,
+      review.reviewerEmail,
+      review.parkID,
+    ],
+    (err, rows, fields) => {
+      if (err) console.log(err);
+      else res.send("Review added successfully");
+    }
+  );
 });
 
 //Endpoint 9: Get all neighbourhoods
@@ -167,7 +164,8 @@ app.get("/api/neighbourhoods", (req, res) => {
 app.get("/api/dogparks/name", (req, res) => {
   let name = req.body;
   con.query(
-    "SELECT Park_ID_no FROM DOG_PARK WHERE Park_name = '" + name.parkName + "'",
+    "SELECT Park_ID_no FROM DOG_PARK WHERE Park_name = ?",
+    [name.parkName],
     (err, rows, fields) => {
       if (err) console.log(err);
       else {
@@ -181,20 +179,17 @@ app.get("/api/dogparks/name", (req, res) => {
 app.get("/api/dogparks/at_address", (req, res) => {
   let addr = req.body;
   var sql =
-    "SELECT Park_ID_no FROM DOG_PARK WHERE Street_number = '" +
-    addr.streetNumber +
-    "' AND Street = '" +
-    addr.street +
-    "' AND Quadrant = '" +
-    addr.quadrant +
-    "'";
-  console.log(sql);
-  con.query(sql, (err, rows, fields) => {
-    if (err) console.log(err);
-    else {
-      res.send(rows);
+    "SELECT Park_ID_no FROM DOG_PARK WHERE Street_number = ? AND Street = ? AND Quadrant = ?";
+  con.query(
+    sql,
+    [addr.streetNumber, addr.street, addr.quadrant],
+    (err, rows, fields) => {
+      if (err) console.log(err);
+      else {
+        res.send(rows);
+      }
     }
-  });
+  );
 });
 
 //(skipping 14 and 15)
@@ -248,9 +243,8 @@ app.get("/api/neighbourhood/amenities", (req, res) => {
   let inp = req.body;
   var amenities;
   con.query(
-    "SELECT Amenity_name, Description FROM AMENITIES WHERE Neighbourhood_name = '" +
-      inp.neighbourhoodName +
-      "'",
+    "SELECT Amenity_name, Description FROM AMENITIES WHERE Neighbourhood_name = ?",
+    [inp.neighbourhoodName],
     (err, rows, fields) => {
       if (err) {
         console.log(err);
@@ -259,7 +253,8 @@ app.get("/api/neighbourhood/amenities", (req, res) => {
     }
   );
   con.query(
-    "SELECT * FROM NEIGHBOURHOOD WHERE Name = '" + inp.neighbourhoodName + "'",
+    "SELECT * FROM NEIGHBOURHOOD WHERE Name = ?",
+    [inp.neighbourhoodName],
     (err, rows, fields) => {
       if (err) console.log(err);
       else {
@@ -304,11 +299,8 @@ app.get("/api/dogpark/owner/:id", (req, res) => {
 app.post("/api/review/report", (req, res) => {
   let inst = req.body;
   con.query(
-    "INSERT INTO moderates (Review_ID, Admin_email) VALUES (" +
-      inst.reviewID +
-      ",'" +
-      inst.adminEmail +
-      "')",
+    "INSERT INTO moderates (Review_ID, Admin_email) VALUES (?,?)",
+    [inst.reviewID, inst.adminEmail],
     (err, rows, fields) => {
       if (err) console.log(err);
       else res.send("Moderates instance successfully added");
@@ -320,22 +312,23 @@ app.post("/api/review/report", (req, res) => {
 app.put("/api/review/edit", (req, res) => {
   let newReview = req.body;
   var sql =
-    "UPDATE REVIEW SET WRITING = '" +
-    newReview.writing +
-    "', Scenery = " +
-    newReview.scenery +
-    ", Parking = " +
-    newReview.parking +
-    ", Amenities = " +
-    newReview.amenities +
-    " WHERE Review_ID_no = " +
-    newReview.reviewID;
-  con.query(sql, (err, rows, fields) => {
-    if (err) console.log(err);
-    else {
-      res.send("Review successfully updated");
+    "UPDATE REVIEW SET Writing = ?, Scenery = ?, Parking = ?, Amenities = ? WHERE Review_ID_no = ?";
+  con.query(
+    sql,
+    [
+      newReview.writing,
+      newReview.scenery,
+      newReview.parking,
+      newReview.amenities,
+      newReview.reviewID,
+    ],
+    (err, rows, fields) => {
+      if (err) console.log(err);
+      else {
+        res.send("Review successfully updated");
+      }
     }
-  });
+  );
 });
 
 //Endpoint 24: Get a traffic review
