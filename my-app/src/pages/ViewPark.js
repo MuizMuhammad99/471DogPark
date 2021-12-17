@@ -34,6 +34,18 @@ function Review(props) {
   );
 }
 
+function E_vent(props) {
+  return(
+    <div className="Park-list">
+      <div className="Menu-bar">
+        <h3 className="Table-element">{props.name}</h3>
+        <h3 className="Table-element">{props.date}</h3>
+      </div>
+      <h4>Description: {props.desc}</h4>
+    </div>
+  );
+}
+
 const ViewPark = () => {
   const [rating, setRating] = React.useState({
     scenery: 0,
@@ -60,6 +72,15 @@ const ViewPark = () => {
       .then((res) => res.json())
       .then((data) => setData({ revs: data }));
   }, []);
+
+  const [evs, setEvs] = React.useState({ a: [] });
+
+  React.useEffect(() => {
+    fetch("/api/dogpark/"+id+"/events")
+      .then((res) => res.json())
+      .then((evs) => setEvs({ a: evs }));
+  }, []);
+
   return (
     <div>
       <div className="seeImage">
@@ -106,7 +127,13 @@ const ViewPark = () => {
                   {" "}
                   Write a new review{" "}
                 </button>
-                <h1 className="labelstyle">reviews</h1>
+                <h1 className="labelstyle">events({evs.a.length})</h1>
+                {evs.a.map((x) => {return (<E_vent name={x.Name} date={x.Date} desc={x.Description} />);})}
+
+                <h1 className="labelstyle">reviews({data.revs.length})</h1>
+                <div>
+
+                </div>
               </div>
 
               <div>
