@@ -397,6 +397,24 @@ app.get("/api/reviews/:id/username", (req, res) => {
   );
 });
 
+//Endpoint 29: Get email of a user from username and password
+app.get("/api/user/credentials/email", (req, res) => {
+  let inp = req.body;
+  con.query(
+    "SELECT Email FROM user WHERE username = ? AND password = ?",
+    [
+      inp.username,
+      inp.password
+    ],
+    (err, rows, fields) => {
+      if (err) console.log(err);
+      else {
+        res.send(rows[0]);
+      }
+    }
+  );
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
