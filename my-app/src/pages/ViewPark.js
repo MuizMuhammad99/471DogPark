@@ -4,6 +4,7 @@ import "../style/login.css";
 
 const queryParams = new URLSearchParams(window.location.search);
 const id = queryParams.get("id");
+const street = queryParams.get('street');
 const name = queryParams.get("name");
 const hood = queryParams.get("hood");
 const size = queryParams.get("size");
@@ -71,7 +72,7 @@ const ViewPark = () => {
               <div>
                 <h4>
                   {" "}
-                  Located in {hood}, in {quad} Calgary
+                  Located on {street} in {hood}, in {quad} Calgary
                 </h4>
                 <h4> Owned and operated by {owner}</h4>
                 <h4> Size: {size} </h4>
