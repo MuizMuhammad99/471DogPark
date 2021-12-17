@@ -153,7 +153,7 @@ app.get('/api/dogpark/:id/avg_rating', (req, res) => {
     con.query(sql, (err, rows, fields) => {
         if(err) console.log(err);
         else {
-            res.send(rows);
+            res.send(rows[0]);
         }
     });
 });
