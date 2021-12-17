@@ -14,7 +14,7 @@ const NavigationBar = () => {
     <div className ="button">
     <button className= "btn" onClick={() => {
       navigationBarClick('/')
-    }}> Home Page</button>
+    }}> Homepage</button>
     </div>
     <div className ="button">
     <button className= "btn" onClick={() => {
@@ -44,12 +44,17 @@ const NavigationBar = () => {
     <div className ="button">
     <button className= "btn" onClick={() => {
       navigationBarClick('/searchforpark')
-    }}> Search For Park</button>
+    }}> Search Park</button>
     </div>
     <div className ="button">
     <button className= "btn" onClick={() => {
       navigationBarClick('/seeallparks?hood=none&add=none&name=none')
-    }}> See All Parks</button>
+    }}> All Parks</button>
+    </div>
+    <div className ="button">
+    <button className= "btn" onClick={() => {
+      navigationBarClick('/analytics')
+    }}> Analytics</button>
     </div>
     
     

@@ -418,3 +418,16 @@ app.get("/api/user/credentials/email", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
+
+//Endpoint 29: Get info about a user
+app.get("/api/dogpark/user/all", (req, res) => {
+  con.query(
+    "SELECT * FROM USER",
+    (err, rows, fields) => {
+      if (err) console.log(err);
+      else {
+        res.send(rows);
+      }
+    }
+  );
+});
