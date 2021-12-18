@@ -12,8 +12,8 @@ app.use(cors());
 
 var con = mysql.createConnection({
   host: "localhost",
-  user: "root",
-  password: "",
+  user: "cpsc471",
+  password: "123456",
   database: "DogParkDB",
 });
 
@@ -28,7 +28,7 @@ con.connect(function (err) {
 app.post("/api/user/new", (req, res) => {
   let user = req.body;
   var sql =
-    "INSERT INTO USER (Email,Username,Password,Fname,Lname,Street_number,Streer,Quadrant) VALUES (?,?,?,?,?,?,?,?)";
+    "INSERT INTO USER (Email,Username,Password,Fname,Lname,Street_number,Street,Quadrant) VALUES (?,?,?,?,?,?,?,?)";
   con.query(
     sql,
     [
@@ -430,11 +430,7 @@ app.get("/api/event/all", (req, res) => {
   );
 });
 
-app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
-});
-
-//Endpoint 30: Get info about a user
+//Endpoint 30: Get info about all users
 app.get("/api/dogpark/user/all", (req, res) => {
   con.query(
     "SELECT * FROM USER",
@@ -467,4 +463,8 @@ app.post('/login', (req, res) =>{
               }
       }
   );
+});
+
+app.listen(PORT, () => {
+  console.log(`Server listening on ${PORT}`);
 });

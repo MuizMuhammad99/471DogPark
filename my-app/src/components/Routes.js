@@ -9,7 +9,7 @@ import Contact from '../pages/Contact';
 import SearchForPark from '../pages/SearchForPark';
 import SeeAllParks from '../pages/SeeAllParks';
 import ViewPark from '../pages/ViewPark';
-import Analytics from '../pages/Analytics';
+import analytics from '../pages/analytics';
 import AddNewReview from '../pages/AddNewReview';
 
 
@@ -27,7 +27,7 @@ function Routing() {
                 <Route path='/searchforpark' exact component={SearchForPark } />
                 <Route path='/seeallparks' exact component={SeeAllParks } />
 		        <Route path='/viewpark' exact component={ViewPark } />
-                <Route path='/Analytics' exact component={Analytics } />
+                <Route path='/analytics' exact component={analytics } />
                 <Route path='/addnewreview' exact component={AddNewReview} />
 
 		
